@@ -1,0 +1,1 @@
+export const baseUrl="http://65.2.68.111:7000";
