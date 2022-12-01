@@ -25,14 +25,19 @@
   font-weight: bold;
   border: 2px solid #060707;
   transition: all 0.3s ease-in-out;
+  margin-top: 45vh;
 }
 .container {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  margin-top: 45vh;
+  justify-content: space-between;
+  /* margin-top: 45vh; */
 }
 .button:hover {
   transform: scale(1.1);
+}
+input-box {
+  /* display: flex;
+  flex-direction: column; */
 }

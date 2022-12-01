@@ -1,15 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import useRazorpay from "react-razorpay";
 import jwt_decode from "jwt-decode";
+import { baseUrl } from "../constants/constant";
 
 const Payment = () => {
   const Razorpay = useRazorpay();
 
+  const [amount, setAmount] = useState("");
+
   let name = "",
     mobileNo = "",
-    email = "";
+    email = "",
+    memberCode = "",
+    memberId = "";
 
-  let tokenData = { FullName: "", MobileNo: "", Email: "" };
+  let tokenData = {
+    FullName: "",
+    MobileNo: "",
+    Email: "",
+    ID: "",
+    MemberCode: "",
+  };
 
   const token = localStorage.getItem("Authorization");
 
@@ -18,17 +29,28 @@ const Payment = () => {
     name = tokenData.FullName;
     mobileNo = tokenData.MobileNo;
     email = tokenData.Email;
+    memberCode = tokenData.MemberCode;
+    memberId = tokenData.ID;
   }
 
-  console.log(name, "4545");
-
   const handlePayment = async () => {
-    // need to Create order on your backend
+    const orderID = await fetch(`${baseUrl}/razorpay_order_create`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+        MemberCode: memberCode,
+        MemberId: memberId,
+      },
+      body: JSON.stringify({ amount: amount, orderCreator: "web" }),
+    });
+
+    // ***** need to modify above used api at backend for order create***//
 
     const options = {
       currency: "INR",
       key: "rzp_test_fKoeUgEMBkJbUF",
-      amount: "5000",
+      amount: amount,
       name: "Summair Club",
       order_id: "order_KmGpjqjR0Gmjbj", //Replace this with an order_id created using Orders API.
       prefill: {
@@ -61,7 +83,16 @@ const Payment = () => {
   return (
     <>
       <h1 style={{ textAlign: "center" }}>PAYMENT</h1>
+
       <div className="container">
+        <div className="input-box">
+          <h3>Enter Amount</h3>
+          <input
+            type="number"
+            value={amount}
+            onChange={(event) => setAmount(event.target.value)}
+          />
+        </div>
         <button className="button" onClick={handlePayment}>
           Click To Pay
         </button>
