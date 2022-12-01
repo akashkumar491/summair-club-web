@@ -59,11 +59,14 @@ const Payment = () => {
   };
 
   return (
-    <div className="container">
-      <button className="btn" onClick={handlePayment}>
-        Click To Pay
-      </button>
-    </div>
+    <>
+      <h1 style={{ textAlign: "center" }}>PAYMENT</h1>
+      <div className="container">
+        <button className="button" onClick={handlePayment}>
+          Click To Pay
+        </button>
+      </div>
+    </>
   );
 };
 
