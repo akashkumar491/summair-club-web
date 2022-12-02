@@ -34,7 +34,7 @@ const Payment = () => {
   }
 
   const handlePayment = async () => {
-    const orderID = await fetch(`${baseUrl}/razorpay_order_create`, {
+    const res = await fetch(`${baseUrl}/razorpay_order_create`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -45,14 +45,16 @@ const Payment = () => {
       body: JSON.stringify({ amount: amount, orderCreator: "web" }),
     });
 
+    console.log(res, "4545");
+
     // ***** need to modify above used api at backend for order create***//
 
     const options = {
       currency: "INR",
       key: "rzp_test_fKoeUgEMBkJbUF",
-      amount: amount,
+      amount: "5000",
       name: "Summair Club",
-      order_id: "order_KmGpjqjR0Gmjbj", //Replace this with an order_id created using Orders API.
+      order_id: "order_KmepjDBG096THn", //Replace this with an order_id created using Orders API.
       prefill: {
         email: email,
         contact: mobileNo,
@@ -86,11 +88,12 @@ const Payment = () => {
 
       <div className="container">
         <div className="input-box">
-          <h3>Enter Amount</h3>
+          <label style={{ fontSize: 20, paddingRight: 10 }}>Enter Amount</label>
           <input
             type="number"
             value={amount}
             onChange={(event) => setAmount(event.target.value)}
+            style={{ fontSize: 20 }}
           />
         </div>
         <button className="button" onClick={handlePayment}>
