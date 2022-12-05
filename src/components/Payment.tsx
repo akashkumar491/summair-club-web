@@ -45,14 +45,16 @@ const Payment = () => {
       body: JSON.stringify({ amount: amount, orderCreator: "web" }),
     });
 
-    console.log(res, "4545");
+    const data = await res.json();
+
+    console.log(data, "4545");
 
     // ***** need to modify above used api at backend for order create***//
 
     const options = {
       currency: "INR",
       key: "rzp_test_fKoeUgEMBkJbUF",
-      amount: "5000",
+      amount: "5000", //assumed
       name: "Summair Club",
       order_id: "order_KmepjDBG096THn", //Replace this with an order_id created using Orders API.
       prefill: {
